@@ -62,4 +62,7 @@ echo $fruits . '<br>'; // give you an error
  * but echo can print s item from array
  */
 
-echo $fruits[2]; //echo 'orange';
+echo $fruits[2] . '<br>'; //echo 'orange';
+
+//have a function to show array named 'prient_r' it take one agrument as array.
+print_r($fruits); //iterate all of item throught fruits array. and prient all of them.
