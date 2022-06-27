@@ -96,6 +96,6 @@ $students = new student();
 // echo $table->title; // call __get method.
 //print_r($students->studentInfo); //this throw an error.
 
-// echo $students->userName; //zubair21
+echo $students->userName; //zubair21
 
 // $table->numRows = 5;
