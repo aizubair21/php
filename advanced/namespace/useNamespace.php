@@ -1,8 +1,11 @@
 <?php
-require "namespace.php";
 
+require "namespace.php"; //require namespace.php file into this <code class=""></code>
+
+// use namespace class
 use math\Table;
 use math\mathmetics;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,11 +15,11 @@ use math\mathmetics;
     <?php
 
     //from table class
-    //if we create a obj in class file, not need here to define 
+    //if we create a obj in class file, not need here to make a class. 
     $table = new Table();
     $table->title = "My Test Now"; //set value, title is a public access modifier.
-    $table->numRows = 10;
-    $table->message();
+    $table->numRows = 10; //num row is public property
+    $table->message(); //message is public method
 
     //from mathmetics class
     $div = new mathmetics;
