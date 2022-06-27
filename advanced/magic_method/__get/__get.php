@@ -46,13 +46,27 @@ use math\doMath as MathDoMath;
 
 // echo "hellow namespace";
 //namespace math; //this would be a wrong.
-class Table
+class student
 {
     //property & method now private. can access only this class.
     private $title;
     private $numRows = 0;
 
     protected $collumns = 10;
+
+    private $studentInfo = [
+        "name" => "zubair",
+        "email" => "zubair@example.xyz",
+        "userName" => "zubair21",
+        "address" => [
+            "district" => "Bhola",
+            "sub_distrint" => "lalmohan",
+            "village" => "lordhardinge",
+        ]
+    ];
+
+
+
     private function message()
     {
         echo "<p>Table '{$this->title}' has {$this->numRows} rows.</p>";
@@ -66,63 +80,22 @@ class Table
 
     public function __get($Property) //take a peremitter, a private or protected poperty which you call
     {
-        return $Property . " is private. You can't see this"; //if you call a private/protected property this error is shown
+        // return $Property . " is private. You can't see this"; //if you call a private/protected property this error is shown
 
+
+        // or, it's be done user can access this specific property.
+        // think, you have an array. user request for single value, but value is private.
+        // user can see thos specific value, not wohle information.
+        // just echo here the specific property value.
+
+        return $this->studentInfo["$Property"];
     }
 }
 
-$table = new Table();
+$students = new student();
 // echo $table->title; // call __get method.
+//print_r($students->studentInfo); //this throw an error.
+
+// echo $students->userName; //zubair21
+
 // $table->numRows = 5;
-
-
-class mathmetics
-{
-    //all method are private now. this can access only from this class.
-    private function divide($numenator, $denominator)
-    {
-        $result = $numenator / $denominator;
-        return $result;
-    }
-
-    private function add($add, $deadd)
-    {
-        $result = ($add + $deadd);
-        return $result;
-    }
-
-    //protected method can access from this drive or clikd class.
-    protected function substra($numenator, $denominator)
-    {
-        $result = $numenator - $denominator;
-        return $result;
-    }
-
-    //public access modifier can access from outlide. we can call this method into index.php page.
-    public function mul($numenator, $denominator)
-    {
-        $result = $numenator * $denominator;
-        return $result;
-    }
-}
-
-//can extends mathematic class into this. can access protected property.
-class doMath extends mathmetics
-{
-    public function sub($num1, $num2)
-    {
-
-        echo $this->substra($num1, $num2); // echo $num1 - $num2
-    }
-}
-
-
-
-// $namespaceObj = new doMath; //obj of doMath class.
-// echo $namespaceObj->isNamespace(); //Math
-
-/** 
- * make an object for doMath class, and get protected method into this.
- */
-$PerotectedObj = new doMath();
-// $obj->sub(50, 45); // 5
