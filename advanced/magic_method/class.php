@@ -1,5 +1,31 @@
 <?php
 
+/**
+ * magi method call on event. 
+ * when specefic event call, magiz method is called automaticly.
+ * Most of magic method used for error handeling.
+ */
+
+/**
+ * magic method start with __(double underscore).
+ * list of most common php oop magic method -
+ * __construct,
+ * __destruct,
+ * __get,
+ * __call,
+ * __set,
+ * __isset,
+ * __unset,
+ * __calStatic,
+ * __toString,
+ * __sleep, [work with serialize]
+ * __clone,
+ * __invoke,
+ * __wakeup,
+ * __unserialize,
+ * 
+ */
+
 namespace math; //this the mandatory
 
 use math\doMath as MathDoMath;
@@ -23,7 +49,7 @@ use math\doMath as MathDoMath;
 class Table
 {
     //property & method now private. can access only this class.
-    private $title = "";
+    private $title;
     private $numRows = 0;
 
     protected $collumns = 10;
@@ -31,9 +57,22 @@ class Table
     {
         echo "<p>Table '{$this->title}' has {$this->numRows} rows.</p>";
     }
+
+    /**
+     * Here $title and $numRows property is private.
+     * if we call outsie, will get a fetal error.
+     * to handle this type of error our have a magic method __get.
+     */
+
+    public function __get($Property) //take a peremitter, a private or protected poperty which you call
+    {
+        return $Property . " is private. You can't see this"; //if you call a private/protected property this error is shown
+
+    }
 }
-// $table = new Table();
-// $table->title = "My table";
+
+$table = new Table();
+// echo $table->title; // call __get method.
 // $table->numRows = 5;
 
 
