@@ -28,10 +28,18 @@ if (isset($_POST['result'])) {
 
 <body style="display: flex; justify-content:center;align-items:center; padding:5px; margin:0px auto;">
     <div style="padding:5px; border:1px solid gray;">
-        <p>Your averaget number is : <?php echo $result->averageNumber($mark) ?></p>
-        <p>You total number is : <?php echo $result->totalNumber($mark) ?></p>
-        <p>Your minimun number is : <?php echo $result->minimunNumber($mark) ?></p>
-        <p>Your maximum number is : <?php echo $result->maximumNumber($mark) ?></p>
+        <p>Your averaget number is : <?php
+                                        echo $result->averageNumber($mark) //avg method
+                                        ?></p>
+        <p>You total number is : <?php
+                                    echo $result->totalNumber($mark) //addition method
+                                    ?></p>
+        <p>Your minimun number is : <?php
+                                    echo $result->minimunNumber($mark) //min method
+                                    ?></p>
+        <p>Your maximum number is : <?php
+                                    echo $result->maximumNumber($mark) //max method
+                                    ?></p>
     </div>
 
     <div style="padding:10px;border: 1px solid gray">
