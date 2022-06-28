@@ -155,6 +155,6 @@ class GradeSheet extends math
 
 $result = new GradeSheet;
 $result->bangla(80)->english(40)->math(70);
-echo "Average numbe is : " . $result->averageNumber();
-echo "\nTotal numbet is : " . $result->totalNumber();
-echo "\nGrade in bangla : " . $result->checkGrade($result->bangla) . "({$result->bangla})";
+echo "Average numbe is : " . $result->averageNumber(); //63.333333
+echo "\nTotal numbet is : " . $result->totalNumber(); //190
+echo "\nGrade in bangla : " . $result->checkGrade($result->bangla) . "({$result->bangla})"; // A+(80)
