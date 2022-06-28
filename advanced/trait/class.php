@@ -64,42 +64,40 @@ trait grade
         if ((!empty($mark) && !is_null($mark)) && is_numeric($mark)) {
             //if mark under 33
             if ($mark < 33) {
-                echo "Fail";
-                return $this;
+                return "Fail";
             } else {
                 if ($mark > 79 && $mark <= 100) :
-                    echo "A+";
-                    return $this;
+                    return "A+";
+
 
                 elseif ($mark > 69 && $mark <= 79) :
-                    echo "A";
-                    return $this;
+                    return "A";
+
 
                 elseif ($mark > 59 && $mark <= 69) :
-                    echo "A-";
-                    return $this;
+                    return "A-";
+
 
                 elseif ($mark > 50 && $mark <= 69) :
-                    echo "B";
-                    return $this;
+                    return "B";
+
 
                 elseif ($mark > 40 && $mark <= 50) :
-                    echo "C";
-                    return $this;
+                    return "C";
+
 
                 elseif ($mark >= 33 && $mark < 40) :
-                    echo "D";
-                    return $this;
+                    return "D";
+
 
                 else :
-                    echo "Please give a correct mark between 1 to 100";
-                    return $this;
+                    return "Please give a correct mark between 1 to 100";
+
                 endif;
             }
         } else {
             //if paremeter isn't a integer
-            echo "A integer value must be taken!";
-            return $this;
+            return "A integer value must be taken!";
         }
     }
 }
@@ -110,34 +108,53 @@ class GradeSheet extends math
     use grade; //trait
 
     //protected property
-    protected $bangla;
+    public $bangla;
     protected $english;
     protected $math;
 
-    public function averageNumber($array)
+
+    //setter method
+    public function bangla($mark)
     {
-        echo $this->avg($array);
+        $this->bangla = $mark;
+        return $this;
+    }
+    public function english($mark)
+    {
+        $this->english = $mark;
         return $this;
     }
 
-    public function totalNumber($array)
+    public function math($mark)
     {
-        echo $this->addition($array);
+        $this->math = $mark;
         return $this;
     }
 
-    public function maximumNumber($array)
+    //getter method
+    public function averageNumber()
     {
-        echo $this->max($array);
-        return $this;
+        return $this->avg([$this->bangla, $this->english, $this->math]);
     }
 
-    public function minimunNumber($array)
+    public function totalNumber()
     {
-        echo $this->min($array);
-        return $this;
+        return $this->addition([$this->bangla, $this->english, $this->math]);
+    }
+
+    public function maximumNumber()
+    {
+        return $this->max([$this->bangla, $this->english, $this->math]);
+    }
+
+    public function minimunNumber()
+    {
+        return $this->min([$this->bangla, $this->english, $this->math]);
     }
 }
 
 $result = new GradeSheet;
-$result->checkGrade(85)->totalNumber([20, 50]); //else statement run
+$result->bangla(80)->english(40)->math(70);
+echo "Average numbe is : " . $result->averageNumber();
+echo "\nTotal numbet is : " . $result->totalNumber();
+echo "\nGrade in bangla : " . $result->checkGrade($result->bangla) . "({$result->bangla})";
