@@ -64,36 +64,43 @@ trait grade
         if ((!empty($mark) && !is_null($mark)) && is_numeric($mark)) {
             //if mark under 33
             if ($mark < 33) {
-                return "Fail";
+                echo "Fail";
+                return $this;
             } else {
                 if ($mark > 79 && $mark <= 100) :
-                    return "A+";
+                    echo "A+";
+                    return $this;
 
                 elseif ($mark > 69 && $mark <= 79) :
-                    return "A";
+                    echo "A";
+                    return $this;
 
                 elseif ($mark > 59 && $mark <= 69) :
-                    return "A-";
+                    echo "A-";
+                    return $this;
 
                 elseif ($mark > 50 && $mark <= 69) :
-                    return "B";
+                    echo "B";
+                    return $this;
 
                 elseif ($mark > 40 && $mark <= 50) :
-                    return "C";
+                    echo "C";
+                    return $this;
 
                 elseif ($mark >= 33 && $mark < 40) :
-                    return "D";
+                    echo "D";
+                    return $this;
 
                 else :
-                    return "Please give a correct mark between 1 to 100";
+                    echo "Please give a correct mark between 1 to 100";
+                    return $this;
                 endif;
             }
         } else {
             //if paremeter isn't a integer
-            return "A integer value must be taken!";
+            echo "A integer value must be taken!";
+            return $this;
         }
-
-        return $this;
     }
 }
 
@@ -109,25 +116,28 @@ class GradeSheet extends math
 
     public function averageNumber($array)
     {
-        return $this->avg($array);
+        echo $this->avg($array);
+        return $this;
     }
 
     public function totalNumber($array)
     {
-        return $this->addition($array);
+        echo $this->addition($array);
         return $this;
     }
 
     public function maximumNumber($array)
     {
-        return $this->max($array);
+        echo $this->max($array);
+        return $this;
     }
 
     public function minimunNumber($array)
     {
-        return $this->min($array);
+        echo $this->min($array);
+        return $this;
     }
 }
 
 $result = new GradeSheet;
-echo $result->checkGrade(81)->totalNumber([20, 50]); //else statement run
+$result->checkGrade(85)->totalNumber([20, 50]); //else statement run
