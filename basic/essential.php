@@ -28,7 +28,12 @@ PHP is cross plateform language, Whick means it can run on Windows, Linux, ans U
 3-> It's easy to intregate with database.
 4-> It's Open Source. So, have large number of community support.
 
-Now We are using php 8.0 but here we practises 7.4. but, we have JIT in php 8.
+Now We are using php 8.0. here we practises 7.4. but, we have JIT in php 8.
 
+----------------- how to start -----------------
 
+after successfully setfup your localserver, you can start php.
+the extension of a php file must be .php 
+and the php scipt start with ' <?php ' and end with ' ?> ' sign. 
+all of php code inside ' <?php ?> ' this;
 */
