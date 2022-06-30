@@ -85,7 +85,11 @@ class student
      * 
      */
     public function __construct($title)
+
     {
+        //in real word, all of my database connection are placed in here;
+
+
         if (!$this->title) { //if title not set
             $this->title = $title;
             echo $this->title;

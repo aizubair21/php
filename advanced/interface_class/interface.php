@@ -1,23 +1,25 @@
 <?php
 
-use info as GlobalInfo;
+namespace interfaceClass;
 
-class name
-{
-    public $name = 'zubair';
-}
+// use info as GlobalInfo;
 
-class info extends name //can extends one class to another, just one
-{
-    public function getName()
-    {
-        echo $this->name;
-    }
-}
+// class name
+// {
+//     public $name = 'zubair';
+// }
 
-$person = new GlobalInfo;
-// echo $person->getName(); //zubair
-// echo '\n';
+// class info extends name //can extends one class to another, just one
+// {
+//     public function getName()
+//     {
+//         echo $this->name;
+//     }
+// }
+
+// $person = new GlobalInfo;
+// // echo $person->getName(); //zubair
+// // echo '\n';
 
 //------------------- interface ---------------------//
 interface math
@@ -33,6 +35,8 @@ interface check
     public function isInt($arg);
     public function isStr($arg);
 }
+//$obj = new math; //error 
+
 
 //most importat thing is, ALL of interface classes must be called into their implement class;
 
@@ -73,53 +77,3 @@ interface check
 
 // $iDoMath = new doMath;
 // echo $iDoMath->add(50, 450); //500
-
-
-//interface basically a multiple inheritence
-
-class doMath implements math, check //implement check, must use two method inside check interface class
-{
-    //use check; //fetal error.
-    public function div($num1, $num2)
-    {
-        # code...
-        return $num1 / $num2;
-    }
-    public function add($num1, $num2)
-    {
-        return $num1 + $num2;
-    }
-
-    public function mul($num1, $num2)
-    {
-        # code...
-        return $num1 * $num2;
-    }
-
-    public function isInt($arg) //check method 
-    {
-        # code...
-        if (is_integer($arg)) {
-            # code...
-            return "Is an integer\n";
-        } else {
-            return "Isn't integer\n";
-        }
-    }
-
-    public function isStr($arg) //check method
-    {
-        # code...
-        if (is_string($arg)) {
-            # code...
-            return "Is an String \n";
-        } else {
-            return "Isn't a string\n";
-        }
-    }
-}
-
-$iDoMath = new doMath;
-// echo $iDoMath->add(50, 450); //500
-// echo '\n';
-echo $iDoMath->isInt(125);
