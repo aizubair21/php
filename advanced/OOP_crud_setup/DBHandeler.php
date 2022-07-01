@@ -109,14 +109,15 @@ class DBUpdate extends DB
 
 
     //set value into query_string 
-    public function __construct()
-    {
-        $this->update = 'UPDATE ';
-    }
+    // public function __construct() 
+    // {
+    //     $this->update = 'UPDATE ';
+    // }
 
-    public function on($table)
+    public function on(string $table)
     {
         $this->table = $table;
+        $this->update = " UPDATE ";
         return $this; //for method chaining
     }
 
@@ -132,7 +133,7 @@ class DBUpdate extends DB
         return $this;
     }
 
-    public function where(string $where)
+    public function where($where)
     {
         $this->where = $where;
         return $this;
@@ -189,7 +190,8 @@ class DBUpdate extends DB
             $update_query = $this->update_query_builder();
             // echo $update_query;
 
-            // $this->connect->query($update_query);
+            $this->connect->query($update_query);
+            return "success";
         } else {
             return $this->connect->connect_error;
         }
@@ -203,7 +205,8 @@ class DBUpdate extends DB
 // print_r(mysqli_fetch_assoc($data->result()));
 
 // $query = new DBInsert;
-// $result = $query->insert('users', ['userName', 'userEmail', 'userPhone', 'userPassword'], ['test user', 'test@example.xyz', '2015485520', 'password']);
+// $query->insert('tests', ['name', 'email'], ['janina', 'ajanina']);
+// $result = $query->insert('tests', ['userName', 'userEmail', 'userPhone', 'userPassword'], ['test user', 'test@example.xyz', '2015485520', 'password']);
 // echo $result;
 // $key = ['name', 'email'];
 // $val = ['zubair', 'janina'];
@@ -224,6 +227,7 @@ class DBUpdate extends DB
 // echo joinTwoArray($key, $val);
 
 $update = new DBUpdate;
-$update->on('tests')->set(['name', 'email'])->value(['zubair', 'janina'])->where('id = 5');
+
+$update->on('tests')->set(['name', 'email'])->value(['zubair', 'janina'])->where('id = 6');
 $result = $update->result();
-// print_r($result);
+print_r($result);

@@ -7,13 +7,20 @@ use mysqli;
 
 class DBConnection
 {
-    private $host = 'localhost', $user = 'root', $password = '', $db = 'coderbees';
-    public $connect;
+    private $host = 'localhost', $user = 'root', $password = '', $db = 'test';
+    protected $connect;
 
     public function __construct()
     {
         $connection = new mysqli($this->host, $this->user, $this->password, $this->db);
         $this->connect = $connection;
+    }
+
+
+
+    public function __destruct()
+    {
+        $this->connect->close();
     }
 }
 
