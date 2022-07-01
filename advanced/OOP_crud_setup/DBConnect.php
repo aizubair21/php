@@ -7,7 +7,7 @@ use mysqli;
 
 class DBConnection
 {
-    private $host = 'localhost', $user = 'root', $password = '', $db = 'test';
+    private $host = 'localhost', $user = 'root', $password = '', $db = 'coderbees';
     protected $connect;
 
     public function __construct()

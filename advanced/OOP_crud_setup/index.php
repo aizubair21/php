@@ -1,8 +1,14 @@
 <?php
+
+// use connection\handle;
+use connection\handle\DBSelect;
+
+// require "DBHandeler.php";
 require "signup-controller.php";
 
 
-$signup = new congiguration;
+$signup = new configuration;
+
 if (isset($_POST['signup'])) {
 	$name = $_POST['name'] ?? "";
 	$username = $_POST['username'] ?? "";
@@ -10,6 +16,12 @@ if (isset($_POST['signup'])) {
 	$email = $_POST['email'] ?? "";
 	$password = $_POST['password'] ?? "";
 
+	$isExist = new DBSelect;
+	$isExist->select([])->from('publisher')->where("publisherEmail = '$email'");
+	$res = $isExist->result()->num_rows;
+	if ($res > 0) {
+		echo "Already Exist";
+	}
 	$signup->name($name);
 	$signup->username($username);
 	$signup->phone($phone);
@@ -44,28 +56,28 @@ if (isset($_POST['signup'])) {
 						<form action="" method="POST">
 							<div>
 								<label for="name">Name :</label>
-								<input type="text" name="name" id="name" placeholder="Your name..." class="form-control <?php echo ($signup->nameErr) ? 'is-invalid' : "" ?> " autofocus value="<?php echo $name ?>">
+								<input type="text" name="name" id="name" placeholder="Your name..." class="form-control <?php echo ($signup->nameErr) ? 'is-invalid' : "" ?> " autofocus value="<?php echo $name ?? "" ?>">
 								<?php
 								$signup->isError($signup->nameErr)
 								?>
 							</div><br>
 							<div>
 								<label for="email">Email :</label>
-								<input type="email" name="email" id="email" placeholder="Your email..." class="form-control <?php echo ($signup->emailErr) ? 'is-invalid' : "" ?> " value="<?php echo $email ?>">
+								<input type="email" name="email" id="email" placeholder="Your email..." class="form-control <?php echo ($signup->emailErr) ? 'is-invalid' : "" ?> " value="<?php echo $email ?? "" ?>">
 								<?php
 								$signup->isError($signup->emailErr)
 								?>
 							</div><br>
 							<div>
 								<label for="username">Username :</label>
-								<input type="text" name="username" id="username" placeholder="Your username..." class="form-control <?php echo ($signup->userNameErr) ? 'is-invalid' : "" ?> " value="<?php echo $username ?>">
+								<input type="text" name="username" id="username" placeholder="Your username..." class="form-control <?php echo ($signup->userNameErr) ? 'is-invalid' : "" ?> " value="<?php echo $username ?? "" ?>">
 								<?php
 								$signup->isError($signup->userNameErr)
 								?>
 							</div><br>
 							<div>
 								<label for="phone">Phone :</label>
-								<input type="phone" name="phone" id="phone" placeholder="Your phone..." class="form-control <?php echo ($signup->phoneErr) ? 'is-invalid' : "" ?> " value="<?php echo $phone ?>">
+								<input type="phone" name="phone" id="phone" placeholder="Your phone..." class="form-control <?php echo ($signup->phoneErr) ? 'is-invalid' : "" ?> " value="<?php echo $phone ?? "" ?>">
 								<?php
 								$signup->isError($signup->phoneErr)
 								?>

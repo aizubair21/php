@@ -1,17 +1,13 @@
 <?php
+include "DBHandeler.php";
 
-use function PHPSTORM_META\type;
+use connection\handle\DBSelect;
 
-class congiguration
+
+class configuration
 {
     private $name, $userName, $email, $phone, $password;
     public $nameErr, $userNameErr, $emailErr, $phoneErr, $passwordErr;
-
-    public function __construct()
-    {
-    }
-
-
 
     public function name($name)
     {
@@ -30,12 +26,7 @@ class congiguration
     public function username($username)
     {
         if (!empty($username)) {
-            if (strlen($username) >= 5) {
-                $this->userName = $username;
-                return true;
-            } else {
-                $this->userNameErr = "UserName must be 5 character.";
-            }
+            $this->userName = $username;
         } else {
             $this->userNameErr = __FUNCTION__ . " field is required.";
         }
@@ -45,7 +36,6 @@ class congiguration
         if (!empty($phone)) {
             if (strlen($phone) == 11 && intval($phone)) {
                 $this->phone = $phone;
-                return true;
             } else {
                 $this->phoneErr = "phone must be 11 character.";
             }
@@ -84,6 +74,7 @@ class congiguration
     public function getName()
     {
         if ((!empty($this->name) && !empty($this->phone)) && !empty($this->email) && !empty($this->userName) && !empty($this->password)) {
+            echo "All done";
         } else {
             return "Please fill all field.";
         }

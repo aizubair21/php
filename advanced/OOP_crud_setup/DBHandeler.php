@@ -1,12 +1,15 @@
 <?php
 
+namespace connection\handle;
+
 include "DBConnect.php";
+
 
 use connection\DBConnection as DB;
 use DBHandler as GlobalDBHandler;
 
 
-//select DB
+//select from DB
 class DBSelect extends DB
 {
     public $columns = array();
@@ -14,7 +17,7 @@ class DBSelect extends DB
     public $where;
     public $limit;
     public $leftJoin;
-    public $query_elements = [' SELECT ', ' FROM ', ' LEFT JOIN  ', ' WHERE ', ' LIMIT '];
+    public $query_elements = [' SELECT ', ' FROM ', '  ', ' WHERE ', ' LIMIT '];
 
     //setter method. set query data
     public function select(array $columns)
@@ -32,9 +35,9 @@ class DBSelect extends DB
         $this->where = $where;
         return $this;
     }
-    public function leftJoin(string $leftJoin)
+    public function join(string $join)
     {
-        $this->leftJoin = $leftJoin;
+        $this->leftJoin = $join;
         return $this;
     }
     public function limit(int $limit)
@@ -76,8 +79,7 @@ class DBSelect extends DB
     public function result()
     {
         $qry = $this->select_query_builder();
-        $result = $this->connect->query($qry);
-        return $result;
+        return $this->connect->query($qry);
     }
 }
 
@@ -101,7 +103,7 @@ class DBInsert extends DB
 }
 
 
-//update DB
+//update into DB
 class DBUpdate extends DB
 {
     private $update, $table, $set, $value, $where;
@@ -198,6 +200,8 @@ class DBUpdate extends DB
     }
 }
 
+
+//delete where DB
 class DBDelete extends DB
 {
     private $where, $table;
