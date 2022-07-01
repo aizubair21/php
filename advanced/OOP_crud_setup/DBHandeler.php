@@ -198,6 +198,44 @@ class DBUpdate extends DB
     }
 }
 
+class DBDelete extends DB
+{
+    private $where, $table;
+
+    //setter method
+    public function from($table)
+    {
+        $this->table = $table;
+        return $this;
+    }
+    public function where($where)
+    {
+        $this->where = $where;
+        return $this;
+    }
+
+    //getter method
+    public function delete_query_builder()
+    {
+        $qry = "DELETE FROM $this->table WHERE $this->where";
+        return $qry;
+    }
+
+
+    //delete 
+    public function result()
+    {
+        if (!empty($this->table) && !empty($this->where)) {
+            $result = $this->connect->query($this->delete_query_builder());
+            if ($result) {
+                return "success";
+            } else {
+                return $this->connect->connect_error;
+            }
+        }
+    }
+}
+
 
 // $data = new DBSelect;
 // $data->select(['postId'])->from('posts');
@@ -226,8 +264,13 @@ class DBUpdate extends DB
 // }
 // echo joinTwoArray($key, $val);
 
-$update = new DBUpdate;
+// $update = new DBUpdate;
 
-$update->on('tests')->set(['name', 'email'])->value(['zubair', 'janina'])->where('id = 6');
-$result = $update->result();
-print_r($result);
+// $update->on('tests')->set(['name', 'email'])->value(['zubair', 'janina'])->where('id = 6');
+// $result = $update->result();
+// print_r($result);
+
+
+// $delete = new DBDelete;
+// echo $delete->from('tests')->where('id = 4')->result();
+// echo $delete->delete_query_builder();
