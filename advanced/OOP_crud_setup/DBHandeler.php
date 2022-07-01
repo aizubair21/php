@@ -104,31 +104,83 @@ class DBInsert extends DBConnection
 //update DB
 class DBUpdate extends DBConnection
 {
-    private $update, $table, $where, $set;
-    private $query_string = ['UPDATE ', 'TABLE ', 'SET ', 'WHERE '];
+    private $update, $table, $set, $value, $where;
+    private $query_string = ['', '', ' SET ', 'WHERE '];
 
 
     //set value into query_string 
-    public function update(string $table)
+    public function __construct()
+    {
+        $this->update = 'UPDATE ';
+    }
+
+    public function on($table)
     {
         $this->table = $table;
+        return $this; //for method chaining
+    }
+
+    public function set(array $key)
+    {
+        $this->set = $key;
         return $this;
     }
 
-    public function set(array $keyPerValue)
+    public function value(array $value)
     {
-        $this->set = $keyPerValue;
+        $this->value = $value;
+        return $this;
     }
 
     public function where(string $where)
     {
         $this->where = $where;
+        return $this;
     }
 
 
 
     //get updated query string
+    public function result()
+    {
 
+        if (!empty($this->update)) {
+            $query = $this->query_string[0];
+            $query .= $this->update;
+        }
+
+        if (!empty($this->table)) {
+            $query .= $this->query_string[1];
+            $query .= $this->table;
+        }
+
+        if (!empty($this->set) && !empty($this->value)) {
+            $query .= $this->query_string[2];
+            $query .= $this->joinTwoArray($this->set, $this->value);
+        }
+
+        if (!empty($this->where)) {
+            $query .= $this->query_string[3];
+            $query .= $this->where;
+        }
+
+        return $query;
+    }
+
+    public function joinTwoArray($arr1, $arr2)
+    {
+        $arrr = "";
+        for ($i = 0; $i <= count($arr1) - 1; $i++) {
+            if ($i == count($arr1) - 1) {
+                $arrr .= "$arr1[$i] = '{$arr2[$i]}' ";
+            } else {
+                $arrr .= "$arr1[$i] = '{$arr2[$i]}', ";
+            }
+        }
+        return $arrr;
+    }
+
+    //destruct 
 }
 
 
@@ -140,3 +192,25 @@ class DBUpdate extends DBConnection
 // $query = new DBInsert;
 // $result = $query->insert('users', ['userName', 'userEmail', 'userPhone', 'userPassword'], ['test user', 'test@example.xyz', '2015485520', 'password']);
 // echo $result;
+$key = ['name', 'email'];
+$val = ['zubair', 'janina'];
+
+function joinTwoArray($arr1, $arr2)
+{
+    $arrr = '';
+    for ($i = 0; $i <= count($arr1) - 1; $i++) {
+
+        if ($i == count($arr1) - 1) {
+            $arrr .= "$arr1[$i] = '{$arr2[$i]}'";
+        } else {
+            $arrr .= "$arr1[$i] = '{$arr2[$i]}', ";
+        }
+    }
+    return $arrr;
+}
+// echo joinTwoArray($key, $val);
+
+$update = new DBUpdate;
+$update->on('tests')->set(['name', 'email'])->value(['zubair', 'janina'])->where('id = 5');
+
+echo $update->result();
