@@ -2,12 +2,12 @@
 
 include "DBConnect.php";
 
-use connection\DBConnection;
+use connection\DBConnection as DB;
 use DBHandler as GlobalDBHandler;
 
 
 //select DB
-class DBSelect extends DBConnection
+class DBSelect extends DB
 {
     public $columns = array();
     public $table;
@@ -17,7 +17,7 @@ class DBSelect extends DBConnection
     public $query_elements = [' SELECT ', ' FROM ', ' LEFT JOIN  ', ' WHERE ', ' LIMIT '];
 
     //setter method. set query data
-    public function select(string $columns)
+    public function select(array $columns)
     {
         $this->columns = $columns;
         return $this;
@@ -44,7 +44,7 @@ class DBSelect extends DBConnection
     }
 
     //get from server
-    public function query_builder($selectedColumns = "*")
+    public function select_query_builder($selectedColumns = "*")
     {
         $query = $this->query_elements[0];
         // if the columns array is empty, select all columns else given columns
@@ -75,14 +75,14 @@ class DBSelect extends DBConnection
 
     public function result()
     {
-        $qry = $this->query_builder();
+        $qry = $this->select_query_builder();
         $result = $this->connect->query($qry);
         return $result;
     }
 }
 
 //insert into DB
-class DBInsert extends DBConnection
+class DBInsert extends DB
 {
     public function insert(string $table, array $fild, array $value)
     {
@@ -102,7 +102,7 @@ class DBInsert extends DBConnection
 
 
 //update DB
-class DBUpdate extends DBConnection
+class DBUpdate extends DB
 {
     private $update, $table, $set, $value, $where;
     private $query_string = ['', '', ' SET ', 'WHERE '];
@@ -141,7 +141,7 @@ class DBUpdate extends DBConnection
 
 
     //get updated query string
-    public function result()
+    public function update_query_builder()
     {
 
         if (!empty($this->update)) {
@@ -181,6 +181,19 @@ class DBUpdate extends DBConnection
     }
 
     //destruct 
+    public function result()
+    {
+        if (!empty($this->update) && !empty($this->table) && !empty($this->set) && !empty($this->value) && !empty($this->where)) {
+            // // return $this->query_builder();
+            // echo "success";
+            $update_query = $this->update_query_builder();
+            // echo $update_query;
+
+            // $this->connect->query($update_query);
+        } else {
+            return $this->connect->connect_error;
+        }
+    }
 }
 
 
@@ -192,25 +205,25 @@ class DBUpdate extends DBConnection
 // $query = new DBInsert;
 // $result = $query->insert('users', ['userName', 'userEmail', 'userPhone', 'userPassword'], ['test user', 'test@example.xyz', '2015485520', 'password']);
 // echo $result;
-$key = ['name', 'email'];
-$val = ['zubair', 'janina'];
+// $key = ['name', 'email'];
+// $val = ['zubair', 'janina'];
 
-function joinTwoArray($arr1, $arr2)
-{
-    $arrr = '';
-    for ($i = 0; $i <= count($arr1) - 1; $i++) {
+// function joinTwoArray($arr1, $arr2)
+// {
+//     $arrr = '';
+//     for ($i = 0; $i <= count($arr1) - 1; $i++) {
 
-        if ($i == count($arr1) - 1) {
-            $arrr .= "$arr1[$i] = '{$arr2[$i]}'";
-        } else {
-            $arrr .= "$arr1[$i] = '{$arr2[$i]}', ";
-        }
-    }
-    return $arrr;
-}
+//         if ($i == count($arr1) - 1) {
+//             $arrr .= "$arr1[$i] = '{$arr2[$i]}'";
+//         } else {
+//             $arrr .= "$arr1[$i] = '{$arr2[$i]}', ";
+//         }
+//     }
+//     return $arrr;
+// }
 // echo joinTwoArray($key, $val);
 
 $update = new DBUpdate;
 $update->on('tests')->set(['name', 'email'])->value(['zubair', 'janina'])->where('id = 5');
-
-echo $update->result();
+$result = $update->result();
+// print_r($result);
