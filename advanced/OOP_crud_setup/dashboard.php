@@ -1,9 +1,12 @@
 <?php
 
-use connection\handle\DBSelect;
+// use connection\handle\DBSelect;
 
-include "DBHandeler.php";
+// include "DBHandeler.php";
 
+// $conn = mysqli_connect("localhost", "root", "", "coderbees");
+// $result = mysqli_query($conn, " SELECT * FROM publisher WHERE publisherUser_name = 'publisher21'");
+// echo mysqli_num_rows($result);
 
 ?>
 <!DOCTYPE html>
@@ -40,20 +43,22 @@ include "DBHandeler.php";
                             <tbody>
                                 <?php
 
-                                $select = new DBSelect;
-                                $select->select(['postId, postTitle, catName, postPublisher, postCategory, publisherEmail'])->from('posts')->join('LEFT JOIN category ON category.catId = posts.postCategory LEFT JOIN publisher ON publisher.publisherId = posts.postPublisher')->where('postStatus = 1')->limit(5);
-                                $result = $select->result();
-                                while ($row = $result->fetch_assoc()) {
+                                // $select = new DBSelect;
+                                // $select->select(['postId, postTitle, catName, postPublisher, postCategory, publisherEmail'])->from('posts')->join('LEFT JOIN category ON category.catId = posts.postCategory LEFT JOIN publisher ON publisher.publisherId = posts.postPublisher')->where('postStatus = 1')->limit(5);
+                                // $result = $select->result();
+                                // while ($row = $result->fetch_assoc()) {
+                                // 
                                 ?>
-                                    <tr>
-                                        <td><?php echo $row['postId'] ?></td>
-                                        <td><?php echo $row['postTitle'] ?></td>
-                                        <td><?php echo $row['catName'] ?></td>
-                                        <td><?php echo $row['publisherEmail'] ?></td>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
+                                // <tr>
+                                    // <td><?php echo $row['postId'] ?></td>
+                                    // <td><?php echo $row['postTitle'] ?></td>
+                                    // <td><?php echo $row['catName'] ?></td>
+                                    // <td><?php echo $row['publisherEmail'] ?></td>
+                                    // </tr>
+                                // <?php
+                                    // }
+                                    // 
+                                    ?>
                             </tbody>
                         </table>
                     </div>

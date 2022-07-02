@@ -16,19 +16,20 @@ if (isset($_POST['signup'])) {
 	$email = $_POST['email'] ?? "";
 	$password = $_POST['password'] ?? "";
 
-	$isExist = new DBSelect;
-	$isExist->select([])->from('publisher')->where("publisherEmail = '$email'");
-	$res = $isExist->result()->num_rows;
-	if ($res > 0) {
-		echo "Already Exist";
-	}
+	// $isExist = new DBSelect;
+	// $isExist->select([])->from('publisher')->where("publisherEmail = '$email'");
+	// $res = $isExist->result()->num_rows;
+	// if ($res > 0) {
+	// 	echo "Already Exist";
+	// }
+
 	$signup->name($name);
 	$signup->username($username);
 	$signup->phone($phone);
 	$signup->email($email);
 	$signup->password($password);
 	// echo $signup->getName();
-	echo $signup->getName();
+	echo $signup->result();
 }
 ?>
 
@@ -45,11 +46,11 @@ if (isset($_POST['signup'])) {
 
 <body>
 	<div class="container">
-		<div class="row">
+		<div class="row my-5">
 			<div class="col-lg-3"></div>
 			<div class="col-lg-6">
-				<div class="card mt-10">
-					<div class="bg-primary text-light fs-2 text-center">
+				<div class="card shadow-lg rounded" style="border-radius: 8px;">
+					<div class="bg-primary text-light fs-2 fw-bolder text-center py-4 ">
 						Input form
 					</div>
 					<div class="card-body">
@@ -89,9 +90,9 @@ if (isset($_POST['signup'])) {
 								$signup->isError($signup->passwordErr)
 								?>
 							</div><br>
-
+							<hr>
 							<div>
-								<button type="submit" class="btn btn-outline-success btn-sm shadow-lg rounded-pill px-3" name="signup">Check</button>
+								<button type="submit" class="btn btn-outline-success btn-md shadow-lg rounded-pill px-3" name="signup">Check</button>
 							</div>
 						</form>
 					</div>

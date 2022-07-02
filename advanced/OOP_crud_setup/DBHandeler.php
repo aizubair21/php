@@ -79,11 +79,19 @@ class DBSelect extends DB
     public function result()
     {
         $qry = $this->select_query_builder();
+        // echo $qry;
+        // return $qr = $this->connect->query(" SELECT * FROM publisher WHERE publisherUser_name = publisher21 ");
         return $this->connect->query($qry);
     }
 }
 
 //insert into DB
+// $select = new DBSelect;
+
+//* -------------------------- How to use DBSelect ------------------------------------------ */
+// $select = new DBSelect;
+// $sql = $select->select([''])->from(' publisher ')->where("publisherUser_name = '$username'")->result();
+
 class DBInsert extends DB
 {
     public function insert(string $table, array $fild, array $value)
@@ -93,15 +101,17 @@ class DBInsert extends DB
         $values = implode("', '", $value);
 
         // insert into database
-        $insert_qry = "INSERT INTO $table ($fields) VALUES ('$values')";
+        $insert_qry = "INSERT INTO $table ($fields) VALUES('$values')";
+        // return $insert_qry;
         if ($this->connect->query($insert_qry)) {
-            return "Inserted ";
+            return "Successfully Inserted. We have recorded your data. ";
         } else {
             return "Error : " . mysqli_error($this->connect);
         }
     }
 }
 
+// $insert = new DBInsert;
 
 //update into DB
 class DBUpdate extends DB
@@ -200,6 +210,8 @@ class DBUpdate extends DB
     }
 }
 
+// $update = new DBUpdate;
+
 
 //delete where DB
 class DBDelete extends DB
@@ -240,6 +252,8 @@ class DBDelete extends DB
     }
 }
 
+// $delete = new DBDelete;
+
 
 // $data = new DBSelect;
 // $data->select(['postId'])->from('posts');
@@ -247,7 +261,7 @@ class DBDelete extends DB
 // print_r(mysqli_fetch_assoc($data->result()));
 
 // $query = new DBInsert;
-// $query->insert('tests', ['name', 'email'], ['janina', 'ajanina']);
+// echo $query->insert('tests', ['name', 'email'], ['janina', 'ajanina']);
 // $result = $query->insert('tests', ['userName', 'userEmail', 'userPhone', 'userPassword'], ['test user', 'test@example.xyz', '2015485520', 'password']);
 // echo $result;
 // $key = ['name', 'email'];
