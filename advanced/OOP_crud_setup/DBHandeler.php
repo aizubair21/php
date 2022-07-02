@@ -111,7 +111,24 @@ class DBInsert extends DB
     }
 }
 
-// $insert = new DBInsert;
+//------------------ How to user insert ------------------------------//
+//make instance first
+# $insert = new DBInsert;
+//call insert() method by crated instance with method chaining. and give all requirment parameter.
+//first perm is : tablename. whick table you want to insert your data.
+//2nd perm are (actually an array) : your targeted table field name;
+//3rd perm are (an array) : your field value;
+//after this call result() method from inserted page for insert data. it give you success or error result;
+
+#$signup->name($name);
+#$signup->username($username);
+#$signup->phone($phone);
+#$signup->email($email);
+#$signup->password($password); echo $signup->getName();
+#echo $signup->result();
+
+# $result = $insert->insert('publisher', ['publisherName', 'publisherEmail', 'publisherPhone'], [$this->name, $this->email, $this->phone]);
+
 
 //update into DB
 class DBUpdate extends DB

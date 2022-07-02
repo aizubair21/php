@@ -15,7 +15,7 @@ if (isset($_POST['signup'])) {
 	$phone = $_POST['phone'] ?? "";
 	$email = $_POST['email'] ?? "";
 	$password = $_POST['password'] ?? "";
-
+	// echo $name;
 	// $isExist = new DBSelect;
 	// $isExist->select([])->from('publisher')->where("publisherEmail = '$email'");
 	// $res = $isExist->result()->num_rows;
@@ -23,13 +23,14 @@ if (isset($_POST['signup'])) {
 	// 	echo "Already Exist";
 	// }
 
-	$signup->name($name);
-	$signup->username($username);
-	$signup->phone($phone);
-	$signup->email($email);
-	$signup->password($password);
+	$signup->name($name)->username($username)->phone($phone)->email($email)->password($password);
 	// echo $signup->getName();
-	echo $signup->result();
+	$response = $signup->signup();
+	if ($response) {
+		header("location: dashboard.php");
+	} else {
+		echo "Please fill all the required field !";
+	}
 }
 ?>
 
@@ -54,38 +55,38 @@ if (isset($_POST['signup'])) {
 						Input form
 					</div>
 					<div class="card-body">
-						<form action="" method="POST">
+						<form action="<?php htmlspecialchars("PHP_SELF") ?>" method="POST">
 							<div>
 								<label for="name">Name :</label>
-								<input type="text" name="name" id="name" placeholder="Your name..." class="form-control <?php echo ($signup->nameErr) ? 'is-invalid' : "" ?> " autofocus value="<?php echo $name ?? "" ?>">
+								<input type="text" name="name" id="name" placeholder="Your name..." class="form-control <?php echo ($signup->nameErr) ? 'is-invalid' : "is-valid" ?> " autofocus value="<?php echo $name ?? "" ?>">
 								<?php
 								$signup->isError($signup->nameErr)
 								?>
 							</div><br>
 							<div>
 								<label for="email">Email :</label>
-								<input type="email" name="email" id="email" placeholder="Your email..." class="form-control <?php echo ($signup->emailErr) ? 'is-invalid' : "" ?> " value="<?php echo $email ?? "" ?>">
+								<input type="email" name="email" id="email" placeholder="Your email..." class="form-control <?php echo ($signup->emailErr) ? 'is-invalid' : "is-valid" ?> " value="<?php echo $email ?? "" ?>">
 								<?php
 								$signup->isError($signup->emailErr)
 								?>
 							</div><br>
 							<div>
 								<label for="username">Username :</label>
-								<input type="text" name="username" id="username" placeholder="Your username..." class="form-control <?php echo ($signup->userNameErr) ? 'is-invalid' : "" ?> " value="<?php echo $username ?? "" ?>">
+								<input type="text" name="username" id="username" placeholder="Your username..." class="form-control <?php echo ($signup->userNameErr) ? 'is-invalid' : "is-valid" ?> " value="<?php echo $username ?? "" ?>">
 								<?php
 								$signup->isError($signup->userNameErr)
 								?>
 							</div><br>
 							<div>
 								<label for="phone">Phone :</label>
-								<input type="phone" name="phone" id="phone" placeholder="Your phone..." class="form-control <?php echo ($signup->phoneErr) ? 'is-invalid' : "" ?> " value="<?php echo $phone ?? "" ?>">
+								<input type="phone" name="phone" id="phone" placeholder="Your phone..." class="form-control <?php echo ($signup->phoneErr) ? 'is-invalid' : "is-valid" ?> " value="<?php echo $phone ?? "" ?>">
 								<?php
 								$signup->isError($signup->phoneErr)
 								?>
 							</div><br>
 							<div>
 								<label for="password">Password :</label>
-								<input type="password" name="password" id="password" placeholder="Your password..." class="form-control <?php echo ($signup->passwordErr) ? 'is-invalid' : "" ?> " autocomplete="off">
+								<input type="password" name="password" id="password" placeholder="Your password..." class="form-control <?php echo ($signup->passwordErr) ? 'is-invalid' : "is-valid" ?> " autocomplete="off">
 								<?php
 								$signup->isError($signup->passwordErr)
 								?>

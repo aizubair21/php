@@ -37,18 +37,22 @@ trait ErrorHandle
         if (isset($errorValue)) {
 
             echo "<div><strong class='text text-danger'> $errorValue </strong></div>";
+        } else {
+
+            echo "<div><strong class='text text-success'> Good </strong></div>";
         }
     }
 
     //unique method
-    public function unique($uniqueProperty, string $table, string $errorProperty)
+    public function unique($uniqueProperty, string $table, string $where, string $errorProperty)
     {
 
-        $conn = mysqli_connect("localhost", "root", "", "coderbees");
-        $qry = " SELECT * FROM $table";
-        $result = mysqli_fetch_assoc(mysqli_query($conn, $qry));
+        $conn = mysqli_connect("localhost", "root", "", "oop_crud");
+        $qry = " SELECT * FROM $table WHERE $where = '$uniqueProperty'";
+        $result = mysqli_num_rows(mysqli_query($conn, $qry));
 
-        if (in_array("$uniqueProperty", $result, false)) {
+        // echo $result;
+        if ($result) {
             $this->{$errorProperty} = "Already exist";
             return $this;
         } else {
@@ -58,6 +62,8 @@ trait ErrorHandle
     }
 
 
+
+
     //
 
 
@@ -65,3 +71,29 @@ trait ErrorHandle
 
 
 }
+// $conn = mysqli_connect("localhost", "root", "", "coderbees");
+// $qry = " SELECT * FROM publisher WHERE publisherEmail = 'user21@example.xyz'";
+// $result = mysqli_query($conn, $qry);
+// echo mysqli_num_rows($result);
+
+
+//
+
+// function unique($uniqueProperty, string $table, string $where, string $errorProperty)
+// {
+
+//     $conn = mysqli_connect("localhost", "root", "", "coderbees");
+//     $qry = " SELECT * FROM $table WHERE $where = '$uniqueProperty'";
+//     $result = mysqli_num_rows(mysqli_query($conn, $qry));
+
+//     echo $result;
+//     // if (in_array("$uniqueProperty", $result, false)) {
+//     //     $this->{$errorProperty} = "Already exist";
+//     //     return $this;
+//     // } else {
+//     //     $this->{$uniqueProperty} = $uniqueProperty;
+//     //     return $this;
+//     // }
+// }
+
+// unique('user21@example.xy', "publisher", "publisherEmail", "emailErr");

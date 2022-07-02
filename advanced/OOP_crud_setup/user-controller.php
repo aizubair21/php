@@ -1,16 +1,19 @@
 <?php
+
 include "DBHandeler.php";
 include "ErrorHandle.php";
 
 use connection\handle\DBInsert;
-use connection\handle\DBSelect;
+// use connection\handle\DBDelete;
+// use connection\handle\DBUpdate;
+// use connection\handle\DBSelect;
 
-
-class configuration
+class userConfig
 {
     use ErrorHandle;
-    private $name, $userName, $email, $phone, $password;
-    public $nameErr, $userNameErr, $emailErr, $phoneErr, $passwordErr;
+
+    private $name, $email, $phone;
+    public $nameErr, $emailErr, $phoneErr;
 
     public function name($name)
     {
@@ -63,7 +66,7 @@ class configuration
         $this->email = $email;
         // $this->required($email, "emailErr");
         if (!empty($email)) {
-            $this->unique($email, "admin", "adminEmail", "emailErr");
+            $this->unique($email, "user", "userEmail", "emailErr");
         } else {
             $this->emailErr = __FUNCTION__ . " field is required";
         }
@@ -97,10 +100,10 @@ class configuration
     //insert method
     public function signup()
     {
-        if ((empty($this->nameErr) && empty($this->phoneErr)) && empty($this->emailErr) && empty($this->userNameErr) && empty($this->passwordErr)) {
+        if ((empty($this->nameErr) && empty($this->phoneErr)) && empty($this->emailErr)) {
 
             $insert = new DBInsert;
-            $result = $insert->insert('admin', ['adminName', 'adminUser_name', 'adminEmail', 'adminPhone', 'adminPassword'], [$this->name, $this->userName, $this->email, $this->phone, $this->password]);
+            $result = $insert->insert('user', ['userName', 'userEmail', 'userPhone',], [$this->name, $this->email, $this->phone]);
             return $result;
         } else {
             return false;

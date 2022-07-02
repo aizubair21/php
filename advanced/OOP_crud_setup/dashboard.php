@@ -1,8 +1,8 @@
 <?php
 
-// use connection\handle\DBSelect;
+use connection\handle\DBSelect;
 
-// include "DBHandeler.php";
+include "DBHandeler.php";
 
 // $conn = mysqli_connect("localhost", "root", "", "coderbees");
 // $result = mysqli_query($conn, " SELECT * FROM publisher WHERE publisherUser_name = 'publisher21'");
@@ -22,43 +22,52 @@
 
 <body>
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top:20px ;">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
-                <div class="card mt-10">
-                    <div class="bg-primary text-light fs-2 text-center">
-                        Input form
+                <div class="card shadow-lg rounded">
+                    <div class="bg-primary text-light fs-2 text-center d-flex justify-content-between px-2 align-items-center">
+                        <div>User Info</div>
+                        <a href="user_add.php" class="btn btn-outline-info shadow-lg rounded-pill">Add User</a>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-response table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Category</th>
-                                    <th>Author</th>
+                                    <th>ID :</th>
+                                    <th>Name :</th>
+                                    <th>Username :</th>
+                                    <th>Phone :</th>
+                                    <th>Modify</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <?php
 
-                                // $select = new DBSelect;
-                                // $select->select(['postId, postTitle, catName, postPublisher, postCategory, publisherEmail'])->from('posts')->join('LEFT JOIN category ON category.catId = posts.postCategory LEFT JOIN publisher ON publisher.publisherId = posts.postPublisher')->where('postStatus = 1')->limit(5);
-                                // $result = $select->result();
-                                // while ($row = $result->fetch_assoc()) {
-                                // 
+                                $select = new DBSelect;
+                                $select->select([''])->from('user');
+                                $result = $select->result();
+                                if ($result->num_rows < 1) {
+                                    echo "<tr class='alert alert-info m-1'><td>No Data Found !</td></tr>";
+                                }
+                                while ($row = $result->fetch_assoc()) {
+
                                 ?>
-                                // <tr>
-                                    // <td><?php echo $row['postId'] ?></td>
-                                    // <td><?php echo $row['postTitle'] ?></td>
-                                    // <td><?php echo $row['catName'] ?></td>
-                                    // <td><?php echo $row['publisherEmail'] ?></td>
-                                    // </tr>
-                                // <?php
-                                    // }
-                                    // 
-                                    ?>
+                                    <tr>
+                                        <td><?php echo $row['userId'] ?></td>
+                                        <td><?php echo $row['userName'] ?></td>
+                                        <td><?php echo $row['userEmail'] ?></td>
+                                        <td><?php echo $row['userPhone'] ?></td>
+                                        <td class="d-flex justify-content-between align-items-center px-1">
+                                            <a class="btn btn-outline-danger btn-sm shadow-lg rounded" href="#"> Trash </a>
+                                            <a class="btn btn-outline-info btn-sm rounded" href="#"> Edit </a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+
+                                ?>
                             </tbody>
                         </table>
                     </div>
